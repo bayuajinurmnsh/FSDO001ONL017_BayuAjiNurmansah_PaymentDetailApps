@@ -1,0 +1,157 @@
+<app-navbar></app-navbar>
+
+<div class="margin-top-10">
+
+</div>
+
+<h4 class="text-center">Payment Details Page</h4>
+
+<div class="container-fluid">
+    <div class="btn d-flex">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Add Data</button>
+    </div>
+  </div>
+<div class="dt-tables">
+
+    
+
+<table id="example1" class="table table-striped table-bordered table-light" style="width:100%">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Card Owner</th>
+            <th>Card Number</th>
+            <th>Expiration Date </th>
+            <th>Total Transaction</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let item of paymentModel; let i=index">
+            <td class="text-center">{{i+1}}</td>
+            <td>{{item.cardOwnerName}}</td>
+            <td>{{item.cardNumber}}</td>
+            <td class="text-center">{{item.expirationDate | date: 'MM/yy' }}</td>
+            <td>IDR {{item.totalTransactions | customDecimalInCommas}}</td>
+            <td>
+                <button (click)="onEdit(item)" class="btn btn-info" data-toggle="modal" data-target="#editModal">Edit</button> 
+                <button (click)="deleteData(item)" class="btn btn-danger mx-3">Delete</button>
+            </td>
+            
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<!-- Add data MODAL-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup] = "form.inputData" (ngSubmit)="tambahData()">
+            
+            <div class="form-group">
+              <label >Card Owner Name</label>
+              <input type="text" class="form-control" id="CardOwnerName" placeholder="Enter card owner name" name="CardOwnerName" formControlName="CardOwnerName" required>
+              <small style="color: red;" *ngIf="CardOwnerName && CardOwnerName.touched && CardOwnerName.invalid" class="small-class form-text">Minimum length is 3 characters.</small>
+            </div>
+
+            <div class="form-group">
+              <label >Card Number</label>
+              <input type="text" class="form-control" id="CardNumber" placeholder="Enter card number" name="CardNumber" formControlName="CardNumber" required>
+              <small style="color: red;" *ngIf="CardNumber && CardNumber.touched && CardNumber.invalid" class="small-class form-text">Minimum length is 13 characters. And input only numbers and symbol -</small>
+            </div>
+
+            <div class="form-group">
+              <label >Security Code</label>
+              <input type="text" class="form-control" id="SecurityCode" placeholder="Enter security code" name="SecurityCode" formControlName="SecurityCode" required>
+              <small style="color: red;" *ngIf="SecurityCode && SecurityCode.touched && SecurityCode.invalid" class="small-class form-text">Minimum length is 4 characters.</small>
+            </div>
+
+            <div class="form-group">
+                <label >Expiration Date</label>
+                <input type="date" class="form-control" id="ExpirationDate" placeholder="Enter expiration date" name="ExpirationDate" formControlName="ExpirationDate" required>
+                <small style="color: red;" *ngIf="ExpirationDate && ExpirationDate.touched && ExpirationDate.invalid" class="small-class form-text">Minimum length is 1 characters.</small>
+              </div>
+
+            <div class="form-group">
+              <label >Total Transaction</label>
+              <input type="number" class="form-control" id="TotalTransactions" placeholder="Enter total transaction" name="TotalTransactions" formControlName="TotalTransactions" required>
+              <small style="color: red;" *ngIf="TotalTransactions && TotalTransactions.touched && TotalTransactions.invalid" class="small-class form-text">Input a valid transaction with minimum value is 10.000</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="!form.inputData.valid">Submit</button>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button id="cancel" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Edit data MODAL-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup] = "form.updateData" (ngSubmit)="editData()">
+            
+            
+
+            <div class="form-group">
+                <label >Card Owner Name</label>
+                <input type="text" class="form-control" id="CardOwnerName" placeholder="Enter card owner name" name="CardOwnerName" formControlName="CardOwnerName" required>
+                <small style="color: red;" *ngIf="CardOwnerName2 && CardOwnerName2.touched && CardOwnerName2.invalid" class="small-class form-text">Minimum length is 3 characters.</small>
+              </div>
+  
+              <div class="form-group">
+                <label >Card Number</label>
+                <input type="text" class="form-control" id="CardNumber" placeholder="Enter card number" name="CardNumber" formControlName="CardNumber" required>
+                <small style="color: red;" *ngIf="CardNumber2 && CardNumber2.touched && CardNumber2.invalid" class="small-class form-text">Minimum length is 13 characters. And input only numbers and symbol -</small>
+              </div>
+  
+              <div class="form-group">
+                <label >Security Code</label>
+                <input  type="text" class="form-control" id="SecurityCode" placeholder="Enter security code" name="SecurityCode" formControlName="SecurityCode" [attr.disabled]="true">
+                <small style="color: red;" *ngIf="SecurityCode2 && SecurityCode2.touched && SecurityCode2.invalid" class="small-class form-text">Minimum length is 4 characters.</small>
+              </div>
+  
+              <div class="form-group">
+                  <label >Expiration Date</label>
+                  <input type="date" class="form-control" id="ExpirationDate" placeholder="Enter expiration date" name="ExpirationDate" formControlName="ExpirationDate" required>
+                  <small style="color: red;" *ngIf="ExpirationDate2 && ExpirationDate2.touched && ExpirationDate2.invalid" class="small-class form-text">Minimum length is 1 characters.</small>
+                </div>
+  
+              <div class="form-group">
+                <label >Total Transaction</label>
+                <input type="number" class="form-control" id="TotalTransactions" placeholder="Enter total transaction" name="TotalTransactions" formControlName="TotalTransactions" required>
+                <small style="color: red;" *ngIf="TotalTransactions2 && TotalTransactions2.touched && TotalTransactions2.invalid" class="small-class form-text">Input a valid transaction with minimum value is 10.000</small>
+              </div>
+  
+              <button type="submit" class="btn btn-primary" [disabled]="!form.updateData.valid">Edit Data</button>
+
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button id="cancel2" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
