@@ -25,15 +25,15 @@ export class IndexComponent implements OnInit {
   form = {
     inputData: new FormGroup({
       CardOwnerName : new FormControl('',[Validators.required, Validators.minLength(3)]),
-      CardNumber : new FormControl('',[Validators.required, Validators.pattern("^(?=.*?[0-9])(?=.*?[-]).{13,}$")]),
-      SecurityCode : new FormControl('',[Validators.required, Validators.minLength(4)]),
+      CardNumber : new FormControl('',[Validators.required, Validators.minLength(16),Validators.maxLength(16) , Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      SecurityCode : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       TotalTransactions: new FormControl('',[Validators.required,Validators.min(10000)]),
       ExpirationDate:new FormControl('',[Validators.required, Validators.minLength(1)]),
     }),
     updateData: new FormGroup({
       PaymentDetailId : new FormControl('',[Validators.minLength(1)]),
       CardOwnerName : new FormControl('',[Validators.required, Validators.minLength(3)]),
-      CardNumber : new FormControl('',[Validators.required, Validators.pattern("^(?=.*?[0-9])(?=.*?[-]).{13,}$")]),
+      CardNumber : new FormControl('',[Validators.required, Validators.minLength(16), Validators.maxLength(16) ,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       SecurityCode : new FormControl('',[]),
       TotalTransactions: new FormControl('',[Validators.required, Validators.min(10000)]),
       ExpirationDate:new FormControl('',[Validators.required, Validators.minLength(1)]),
@@ -87,6 +87,11 @@ export class IndexComponent implements OnInit {
   
 
   ngOnInit(): void {
+    const login = localStorage.getItem('isLoggedIn')
+    if (login=='no'){
+      ("You have login first!")
+      this.router.navigate(['login']); 
+    }
     this.getAllData();
   }
 

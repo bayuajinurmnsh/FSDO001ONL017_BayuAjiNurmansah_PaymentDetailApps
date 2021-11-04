@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(){
+    localStorage.setItem('isLoggedIn', 'no');
     this.router.navigate(['login']);
   }
   

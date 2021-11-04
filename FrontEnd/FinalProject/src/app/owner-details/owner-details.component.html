@@ -31,13 +31,13 @@
         <tr *ngFor = "let item of ownerModel; let i=index">
             <td class="text-center">{{i+1}}</td>
             <td>{{item.ownerName}}</td>
-            <td>{{item.ownerCardNumber}}</td>
+            <td>{{item.ownerCardNumber | customCardNumber}}</td>
             <td>{{item.ownerAddress}}</td>
             <td>{{item.status}}</td>
             <td class="text-center">{{item.createdDate | date: 'MM/yy' }}</td>
             <td>
                 <button (click)="onEdit(item)" class="btn btn-info" data-toggle="modal" data-target="#editModal">Edit</button> 
-                <button (click)="deleteData(item)" class="btn btn-danger mx-3">Delete</button>
+                <button (click)="deleteData(item)" class="btn btn-danger mx-3 fa fa-trash"></button>
             </td>
             
         </tr>
@@ -70,7 +70,7 @@
             <div class="form-group">
               <label >Owner Card Number</label>
               <input type="text" class="form-control" id="ownerCardNumber" placeholder="Enter owner card number" name="ownerCardNumber" formControlName="ownerCardNumber" required>
-              <small style="color: red;" *ngIf="ownerCardNumber && ownerCardNumber.touched && ownerCardNumber.invalid" class="small-class form-text">Minimum length is 13 characters. And input only numbers and symbol -</small>
+              <small style="color: red;" *ngIf="ownerCardNumber && ownerCardNumber.touched && ownerCardNumber.invalid" class="small-class form-text">Length is 16 characters. And input only numbers </small>
             </div>
 
             <div class="form-group">
@@ -123,19 +123,19 @@
             <div class="form-group">
               <label >Owner Name</label>
               <input type="text" class="form-control" id="ownerName" placeholder="Enter owner name" name="ownerName" formControlName="ownerName" required>
-              <small style="color: red;" *ngIf="ownerName && ownerName.touched && ownerName.invalid" class="small-class form-text">Minimum length is 3 characters.</small>
+              <small style="color: red;" *ngIf="ownerName2 && ownerName2.touched && ownerName2.invalid" class="small-class form-text">Minimum length is 3 characters.</small>
             </div>
             
             <div class="form-group">
               <label >Owner Card Number</label>
               <input type="text" class="form-control" id="ownerCardNumber" placeholder="Enter owner card number" name="ownerCardNumber" formControlName="ownerCardNumber" required>
-              <small style="color: red;" *ngIf="ownerCardNumber && ownerCardNumber.touched && ownerCardNumber.invalid" class="small-class form-text">Minimum length is 13 characters. And input only numbers and symbol -</small>
+              <small style="color: red;" *ngIf="ownerCardNumber2 && ownerCardNumber2.touched && ownerCardNumber2.invalid" class="small-class form-text">Length is 16 characters. And input only numbers</small>
             </div>
 
             <div class="form-group">
               <label >Owner Address</label>
               <input type="text" class="form-control" id="ownerAddress" placeholder="Enter Owner Address" name="ownerAddress" formControlName="ownerAddress" required>
-              <small style="color: red;" *ngIf="ownerAddress && ownerAddress.touched && ownerAddress.invalid" class="small-class form-text">Minimum length is 4 characters.</small>
+              <small style="color: red;" *ngIf="ownerAddress2 && ownerAddress2.touched && ownerAddress2.invalid" class="small-class form-text">Minimum length is 4 characters.</small>
             </div>
 
             <div class="form-group">
@@ -144,13 +144,13 @@
                     <option value="active">Aktif</option>
                     <option value="blocked">Blokir</option>
                   </select>
-                <small style="color: red;" *ngIf="status && status.touched && status.invalid" class="small-class form-text">Choose status.</small>
+                <small style="color: red;" *ngIf="status2 && status2.touched && status2.invalid" class="small-class form-text">Choose status.</small>
               </div>
 
             <div class="form-group">
               <label >Created Date</label>
               <input type="date" class="form-control" id="createdDate" placeholder="Enter Created Date" name="createdDate" formControlName="createdDate" required>
-              <small style="color: red;" *ngIf="createdDate && createdDate.touched && createdDate.invalid" class="small-class form-text">Input a valid date</small>
+              <small style="color: red;" *ngIf="createdDate2 && createdDate2.touched && createdDate2.invalid" class="small-class form-text">Input a valid date</small>
             </div>
 
             <button type="submit" class="btn btn-primary" [disabled]="!form.updateData.valid">Submit</button>

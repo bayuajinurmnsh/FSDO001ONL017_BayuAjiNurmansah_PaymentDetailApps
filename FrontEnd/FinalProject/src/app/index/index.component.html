@@ -21,6 +21,7 @@
             <th>No</th>
             <th>Card Owner</th>
             <th>Card Number</th>
+           
             <th>Expiration Date </th>
             <th>Total Transaction</th>
             <th class="text-center">Actions</th>
@@ -30,12 +31,13 @@
         <tr *ngFor = "let item of paymentModel; let i=index">
             <td class="text-center">{{i+1}}</td>
             <td>{{item.cardOwnerName}}</td>
-            <td>{{item.cardNumber}}</td>
+            <td>{{item.cardNumber | customCardNumber}}</td>
+            
             <td class="text-center">{{item.expirationDate | date: 'MM/yy' }}</td>
             <td>IDR {{item.totalTransactions | customDecimalInCommas}}</td>
             <td>
-                <button (click)="onEdit(item)" class="btn btn-info" data-toggle="modal" data-target="#editModal">Edit</button> 
-                <button (click)="deleteData(item)" class="btn btn-danger mx-3">Delete</button>
+                <button (click)="onEdit(item)" class="btn btn-info" data-toggle="modal" data-target="#editModal">Edit </button> 
+                <button (click)="deleteData(item)" class="btn btn-danger mx-3 fa fa-trash"></button>
             </td>
             
         </tr>
@@ -66,13 +68,13 @@
             <div class="form-group">
               <label >Card Number</label>
               <input type="text" class="form-control" id="CardNumber" placeholder="Enter card number" name="CardNumber" formControlName="CardNumber" required>
-              <small style="color: red;" *ngIf="CardNumber && CardNumber.touched && CardNumber.invalid" class="small-class form-text">Minimum length is 13 characters. And input only numbers and symbol -</small>
+              <small style="color: red;" *ngIf="CardNumber && CardNumber.touched && CardNumber.invalid" class="small-class form-text">Length is 16 characters. And input only numbers</small>
             </div>
 
             <div class="form-group">
               <label >Security Code</label>
-              <input type="text" class="form-control" id="SecurityCode" placeholder="Enter security code" name="SecurityCode" formControlName="SecurityCode" required>
-              <small style="color: red;" *ngIf="SecurityCode && SecurityCode.touched && SecurityCode.invalid" class="small-class form-text">Minimum length is 4 characters.</small>
+              <input type="password" class="form-control" id="SecurityCode" placeholder="Enter security code" name="SecurityCode" formControlName="SecurityCode" required>
+              <small style="color: red;" *ngIf="SecurityCode && SecurityCode.touched && SecurityCode.invalid" class="small-class form-text">Length is 3 characters and numbers only.</small>
             </div>
 
             <div class="form-group">
@@ -123,13 +125,13 @@
               <div class="form-group">
                 <label >Card Number</label>
                 <input type="text" class="form-control" id="CardNumber" placeholder="Enter card number" name="CardNumber" formControlName="CardNumber" required>
-                <small style="color: red;" *ngIf="CardNumber2 && CardNumber2.touched && CardNumber2.invalid" class="small-class form-text">Minimum length is 13 characters. And input only numbers and symbol -</small>
+                <small style="color: red;" *ngIf="CardNumber2 && CardNumber2.touched && CardNumber2.invalid" class="small-class form-text">Length is 16 characters. And input only numbers</small>
               </div>
   
               <div class="form-group">
                 <label >Security Code</label>
-                <input  type="text" class="form-control" id="SecurityCode" placeholder="Enter security code" name="SecurityCode" formControlName="SecurityCode" [attr.disabled]="true">
-                <small style="color: red;" *ngIf="SecurityCode2 && SecurityCode2.touched && SecurityCode2.invalid" class="small-class form-text">Minimum length is 4 characters.</small>
+                <input  type="password" class="form-control" id="SecurityCode" placeholder="Enter security code" name="SecurityCode" formControlName="SecurityCode" [attr.disabled]="true">
+                <small style="color: red;" *ngIf="SecurityCode2 && SecurityCode2.touched && SecurityCode2.invalid" class="small-class form-text">Length is 4 characters and numbers only.</small>
               </div>
   
               <div class="form-group">

@@ -13,6 +13,7 @@ export class LoginRegisterService {
 
   //login
   postLogin(data: any) {
+    localStorage.setItem('isLoggedIn', 'yes');
     return this.http.post<any>("http://localhost:5000/api/AuthManagement/Login", data)
     .pipe(map((res:any) => {
       return res;

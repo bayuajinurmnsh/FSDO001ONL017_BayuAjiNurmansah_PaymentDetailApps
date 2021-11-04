@@ -9,7 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { decimalInCommas } from './pipes/decimalInCommas';
+import { decimalInCommas, cardNumber } from './pipes/decimalInCommas';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OwnerDetailsComponent } from './owner-details/owner-details.component';
 
@@ -22,7 +22,8 @@ import { OwnerDetailsComponent } from './owner-details/owner-details.component';
     IndexComponent,
     decimalInCommas,
     NavbarComponent,
-    OwnerDetailsComponent
+    OwnerDetailsComponent,
+    cardNumber
   ],
   imports: [
     BrowserModule,

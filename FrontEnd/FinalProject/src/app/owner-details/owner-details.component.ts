@@ -21,13 +21,18 @@ export class OwnerDetailsComponent implements OnInit {
   constructor(public api: OwnerService, public router: Router, ) { }
 
   ngOnInit(): void {
+    const login = localStorage.getItem('isLoggedIn')
+    if (login=='no'){
+      alert("You have login first!")
+      this.router.navigate(['login']); 
+    }
     this.getAllData();
   }
 
   form = {
     inputData: new FormGroup({
       ownerName : new FormControl('',[Validators.required, Validators.minLength(3)]),
-      ownerCardNumber : new FormControl('',[Validators.required,Validators.pattern("^(?=.*?[0-9])(?=.*?[-]).{13,}$")]),
+      ownerCardNumber : new FormControl('',[Validators.required, Validators.minLength(16), Validators.maxLength(16),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       ownerAddress : new FormControl('',[Validators.required, Validators.minLength(4)]),
       status: new FormControl('',[Validators.required,Validators.min(1)]),
       createdDate:new FormControl('',[Validators.required, Validators.minLength(1)]),
@@ -35,7 +40,7 @@ export class OwnerDetailsComponent implements OnInit {
     updateData: new FormGroup({
       ownerId : new FormControl('',[Validators.minLength(1)]),
       ownerName : new FormControl('',[Validators.required, Validators.minLength(3)]),
-      ownerCardNumber : new FormControl('',[Validators.required,Validators.pattern("^(?=.*?[0-9])(?=.*?[-]).{13,}$")]),
+      ownerCardNumber : new FormControl('',[Validators.required,Validators.minLength(16), Validators.maxLength(16) ,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       ownerAddress : new FormControl('',[Validators.required, Validators.minLength(4)]),
       status: new FormControl('',[Validators.required,Validators.min(1)]),
       createdDate:new FormControl('',[Validators.required, Validators.minLength(1)]),
